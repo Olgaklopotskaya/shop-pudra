@@ -3,87 +3,87 @@ const items = [{
         description: "Волнующая, женственная и утонченная туалетная вода.",
         tags: ["new"],
         price: 321.65,
-        img: "./img/1.jpeg",
+        img: "./img/1.jpg",
     },
     {
         title: "Giorgio Armani Si Passione",
         description: "С освежающими нотками груши и сладкой смородиной, нотки с острым запахом розового перца.",
         tags: ["parfum"],
         price: 323.55,
-        img: "./img/2.jpeg",
+        img: "./img/2.jpg",
     },
     {
         title: "Moschino Toy2",
         description: "Жизнерадостный, нежный, игривый, чувственный ароматю",
         tags: ["parfum"],
         price: 165.11,
-        img: "./img/3.jpeg",
+        img: "./img/3.jpg",
     },
     {
         title: "Yves Saint Laurent Libre",
         description: " Сексуальный, свежий, цветочный. Аромат, находящийся на грани между прохладой и обжигающей чувственностью.",
         tags: ["parfum"],
         price: 336.80,
-        img: "./img/4.jpeg",
+        img: "./img/4.jpg",
     },
     {
         title: "BB Creme Erborian",
         description: "BB-крем макияж-уход для лица с эффектом «детская кожа.",
         tags: ["new"],
         price: 98.75,
-        img: "./img/5.jpeg",
+        img: "./img/5.jpg",
     },
     {
         title: "Gucci Flora Gorgeous",
         description: "Жизнерадостный цветочно-фруктовый характер аромата создается на основе цветка гардении и персика.",
         tags: ["parfum"],
         price: 200.77,
-        img: "./img/6.jpeg",
+        img: "./img/6.jpg",
     },
     {
         title: "Vichy Liftactiv Specialist",
         description: "Сыворотка комплексного действия с витамином В3 против пигментации и морщин",
         tags: ["new"],
         price: 152.98,
-        img: "./img/7.jpeg",
+        img: "./img/7.jpg",
     },
     {
         title: "Caudalie Vinosource-Hydra",
         description: "Освежающий крем с тающей текстурой увлажняет и успокаивает сухую и обезвоженную кожу. ",
         tags: ["cream"],
         price: 98.10,
-        img: "./img/8.jpeg",
+        img: "./img/8.jpg",
     },
     {
         title: "Payot Nutricia",
         description: "Интенсивно питает сухую кожу, возвращая ей чувство комфорта.",
         tags: ["cream"],
         price: 150.70,
-        img: "./img/9.jpeg",
+        img: "./img/9.jpg",
     },
     {
         title: "Payot Blue Techni",
         description: "Cыворотка борется с последствиями десинхронизации биоритмов кожи. ",
         tags: ["new"],
         price: 191.23,
-        img: "./img/10.jpeg",
+        img: "./img/10.jpg",
     },
     {
         title: "Estee Lauder Idealist ",
         description: "Эта быстродействующая сыворотка сочетает в себе самые эффективные технологии восстановления текстуры кожи: поры мгновенно сужаются на 1/3. ",
         tags: ["serum"],
         price: 367.55,
-        img: "./img/11.jpeg",
+        img: "./img/11.jpg",
     },
     {
         title: "Clinique Moisture Surge",
         description: "Интенсивно, увлажняющий крем корректирующий тон кожи,  SPF 30",
         tags: ["new"],
         price: 140.78,
-        img: "./img/12.jpeg",
+        img: "./img/12.jpg",
     },
 ];
-const cardsContainer = document.querySelector('#shop-items');
+const cardsContainer = document.querySelector('#shop-items')
 const templateShop = document.querySelector('#item-template');
 const nothingFound = document.querySelector('#nothing-found');
 
@@ -96,8 +96,7 @@ function makeTemplateShop(shopItem) {
     card.querySelector('h1').textContent = title;
     card.querySelector('p').textContent = description;
     card.querySelector('.price').textContent = `${price}P`;
-    card.querySelector('img').textContent = img;
-
+    card.querySelector('img').src = img;
 
     const tagsHolder = card.querySelector(".tags");
     // Отрисовываем теги для товара
@@ -112,14 +111,14 @@ function makeTemplateShop(shopItem) {
     return card;
 }
 //товары после применения поиска,которые мы будем показывать
-let currenState = [...cards]
+let currentState = [...items]
 
 //функция для отрисовки, в качестве параметров тов кот нужно отрисовать
 function renderCards(arr) {
     //cброс текста 'ничего не найдено' после предыд поиска
     nothingFound.textContent = "";
     //чистим контейнер с товарами ,если там что-то было
-    itemsContainer.innerHTML = '';
+    cardsContainer.innerHTML = '';
     //отрисовываем товары из переданного параметра arr
     arr.forEach((card) => {
         //вызываем makeTemplateShop для каждого товара
@@ -140,20 +139,20 @@ function sotrByAlphabet(a, b) {
     if (a.title > b.title) {
         return 1;
     }
-    if (a.title > b.title) {
+    if (a.title < b.title) {
         return -1;
     }
     //если они равны
     return 0;
 }
-//вызываем ф-цию и сортируем
+//вызываем ф-цию и сортируем 
 renderCards(currentState.sort((a, b) => sotrByAlphabet(a, b)));
 
-const sortControl = document.querySelector('#sort');
-//обработчик события("change"- "изменение") выбор опции  из селекта
-sortControl.addEventListener("change", (Event) => {
+const sortControl = document.querySelector("#sort")
+    //обработчик события("change"- "изменение") выбор опции  из селекта
+sortControl.addEventListener("change", (event) => {
     //опция ,что выбрал пользователь атрибут value
-    const selectedOption = Event.target.value;
+    const selectedOption = event.target.value;
     //в зависимости от сортировки
     switch (selectedOption) {
         case "expensive":
@@ -168,16 +167,11 @@ sortControl.addEventListener("change", (Event) => {
                 currentState.sort((a, b) => a.price - b.price);
                 break;
             }
-        case "rating":
-            {
-                // От более высокого рейтинга к более низкому
-                currentState.sort((a, b) => b.rating - a.rating);
-                break;
-            }
+
         case "alphabet":
             {
                 // По алфавиту
-                currentState.sort((a, b) => sortByAlphabet(a, b));
+                currentState.sort((a, b) => sotrByAlphabet(a, b));
                 break;
             }
     }
@@ -200,11 +194,10 @@ function applySearch() {
         el.title.toLowerCase().includes(searchString)
     );
     // Отсортировали их по алфавиту
-    currentState.sort((a, b) => sortByAlphabet(a, b));
+    currentState.sort((a, b) => sotrByAlphabet(a, b));
     // Отрисовали результаты поиска
     renderCards(currentState);
     // По умолчанию сортировка "по алфавиту"
-    sortControl.selectedIndex = 0;
 }
 
 // Обработчик при клике на кнопку поиска
